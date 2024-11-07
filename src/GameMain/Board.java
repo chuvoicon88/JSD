@@ -79,7 +79,7 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         numAI = 0;
-        tank = new Tank(INIT_PLAYER_X, INIT_PLAYER_Y, 4);
+        tank = new Tank(INIT_PLAYER_X, INIT_PLAYER_Y, 4, true);
 
         initBlocks();
         CollisionUtility.loadCollisionUtility(blocks, animations);

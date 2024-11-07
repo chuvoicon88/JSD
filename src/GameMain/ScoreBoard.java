@@ -49,7 +49,7 @@ public class ScoreBoard extends JPanel implements ActionListener, KeyListener {
     }
 
     /**
-     * Draw the scoreBorad with different types of enemies on the screen.
+     * Draw the scoreBoard with different types of enemies on the screen.
      *
      * @param g Graphics
      */
