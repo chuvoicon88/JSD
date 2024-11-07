@@ -385,9 +385,9 @@ public class Board extends JPanel implements ActionListener {
      * Updates the powerUps on the board
      *
      * Unlike the other updateMethods, update for powerUps handles the collision
-     * of a player tank and a powerUp PowerUps are removed if vis = false
+     * of a player tank and a powerUp
+     * PowerUps are removed if vis = false
      * otherwise they are updated via updateAnimations.
-     *
      *
      */
     private void updatePowerUps() {
