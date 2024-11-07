@@ -20,6 +20,7 @@ import javax.swing.ImageIcon;
  */
 public class Tank extends Sprite {
 
+    boolean isPlayer1;
     private final int BOARD_WIDTH = Map.BOARD_WIDTH;
     private final int BOARD_HEIGHT = Map.BOARD_HEIGHT;
     private int dx;
@@ -27,7 +28,7 @@ public class Tank extends Sprite {
     private ArrayList<Bullet> bullets;
     public int direction;
     private long lastFired = 0;
-    private int health = 2;
+    private int health = 10;
     public int starLevel = 0;
     public int lives;
     public boolean shield = false;
@@ -54,13 +55,14 @@ public class Tank extends Sprite {
         }
     }
 
-    public Tank(int x, int y, int lives) {
+    public Tank(int x, int y, int lives, boolean isPlayer1) {
         super(x, y);
         loadImage("src/image/playerTank_up.png");
         getImageDimensions();
         bullets = new ArrayList<>();
         direction = 0;
         this.lives = lives;
+        this.isPlayer1 = isPlayer1;
     }
 
     public void move() {
@@ -124,6 +126,7 @@ public class Tank extends Sprite {
     }
 
     public void keyPressed(KeyEvent e) {
+
         int time;
         int key = e.getKeyCode();
         if (starLevel == 0) {
@@ -131,65 +134,107 @@ public class Tank extends Sprite {
         } else {
             time = 250;
         }
-        if (key == KeyEvent.VK_SPACE && (System.currentTimeMillis() - lastFired) > time) {
-            fire();
-            lastFired = System.currentTimeMillis();
-        } else if (key == KeyEvent.VK_LEFT) {
-            dx = -1;
-            dy = 0;
-            if (starLevel > 1) {
-                dx = -2;
+        if (isPlayer1) {
+            if (key == KeyEvent.VK_SPACE && (System.currentTimeMillis() - lastFired) > time) {
+                fire();
+                lastFired = System.currentTimeMillis();
+            } else if (key == KeyEvent.VK_LEFT) {
+                dx = -1;
+                dy = 0;
+                if (starLevel > 1) {
+                    dx = -2;
+                }
+                ImageIcon ii = new ImageIcon("src/image/playerTank_left.png");
+                image = ii.getImage();
+                direction = 3;
+            } else if (key == KeyEvent.VK_RIGHT) {
+                dx = 1;
+                dy = 0;
+                if (starLevel > 1) {
+                    dx = 2;
+                }
+                ImageIcon ii = new ImageIcon("src/image/playerTank_right.png");
+                image = ii.getImage();
+                direction = 1;
+            } else if (key == KeyEvent.VK_UP) {
+                ImageIcon ii = new ImageIcon("src/image/playerTank_up.png");
+                image = ii.getImage();
+                dy = -1;
+                dx = 0;
+                if (starLevel > 1) {
+                    dy = -2;
+                }
+                direction = 0;
+            } else if (key == KeyEvent.VK_DOWN) {
+                ImageIcon ii = new ImageIcon("src/image/playerTank_down.png");
+                image = ii.getImage();
+                dy = 1;
+                dx = 0;
+                if (starLevel > 1) {
+                    dy = 2;
+                }
+                direction = 2;
+            } else {
+                if (key == KeyEvent.VK_H && (System.currentTimeMillis() - lastFired) > time) {
+                    fire();
+                    lastFired = System.currentTimeMillis();
+                } else if (key == KeyEvent.VK_A) {
+                    dx = -1;
+                    dy = 0;
+                    if (starLevel > 1) {
+                        dx = -2;
+                    }
+                    ImageIcon ii = new ImageIcon("src/image/playerTank_left.png");
+                    image = ii.getImage();
+                    direction = 3;
+                } else if (key == KeyEvent.VK_D) {
+                    dx = 1;
+                    dy = 0;
+                    if (starLevel > 1) {
+                        dx = 2;
+                    }
+                    ImageIcon ii = new ImageIcon("src/image/playerTank_right.png");
+                    image = ii.getImage();
+                    direction = 1;
+                } else if (key == KeyEvent.VK_W) {
+                    ImageIcon ii = new ImageIcon("src/image/playerTank_up.png");
+                    image = ii.getImage();
+                    dy = -1;
+                    dx = 0;
+                    if (starLevel > 1) {
+                        dy = -2;
+                    }
+                    direction = 0;
+                } else if (key == KeyEvent.VK_S) {
+                    ImageIcon ii = new ImageIcon("src/image/playerTank_down.png");
+                    image = ii.getImage();
+                    dy = 1;
+                    dx = 0;
+                    if (starLevel > 1) {
+                        dy = 2;
+                    }
+                    direction = 2;
+                }
             }
-            ImageIcon ii = new ImageIcon("src/image/playerTank_left.png");
-            image = ii.getImage();
-            direction = 3;
-        } else if (key == KeyEvent.VK_RIGHT) {
-            dx = 1;
-            dy = 0;
-            if (starLevel > 1) {
-                dx = 2;
-            }
-            ImageIcon ii = new ImageIcon("src/image/playerTank_right.png");
-            image = ii.getImage();
-            direction = 1;
-        } else if (key == KeyEvent.VK_UP) {
-            ImageIcon ii = new ImageIcon("src/image/playerTank_up.png");
-            image = ii.getImage();
-            dy = -1;
-            dx = 0;
-            if (starLevel > 1) {
-                dy = -2;
-            }
-            direction = 0;
-        } else if (key == KeyEvent.VK_DOWN) {
-            ImageIcon ii = new ImageIcon("src/image/playerTank_down.png");
-            image = ii.getImage();
-            dy = 1;
-            dx = 0;
-            if (starLevel > 1) {
-                dy = 2;
-            }
-            direction = 2;
         }
     }
 
     public void keyReleased(KeyEvent e) {
-
         int key = e.getKeyCode();
 
-        if (key == KeyEvent.VK_LEFT) {
+        if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A) {
             dx = 0;
         }
 
-        if (key == KeyEvent.VK_RIGHT) {
+        if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D) {
             dx = 0;
         }
 
-        if (key == KeyEvent.VK_UP) {
+        if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
             dy = 0;
         }
 
-        if (key == KeyEvent.VK_DOWN) {
+        if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
             dy = 0;
         }
     }

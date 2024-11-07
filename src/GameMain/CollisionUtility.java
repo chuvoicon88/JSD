@@ -173,10 +173,11 @@ public class CollisionUtility {
                     SoundUtility.BulletHitTank();
                     if (tankAI.getHealth() < 1) {
                         incrementNum(tankAI);
-                        if (tankAI.hasPowerUp()) {
+
+                        //if (tankAI.hasPowerUp()) {
                             powerUpX = tankAI.getX();
                             powerUpY = tankAI.getY();
-                        }
+                        //}
                         tankAI.vis = false;
                         Board.decrementEnemies(1);
                         explosions.add(new ExplodingTank(tankAI.x, tankAI.y));

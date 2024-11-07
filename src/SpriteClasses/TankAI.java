@@ -19,7 +19,7 @@ public class TankAI extends Sprite {
     private final int BOARD_WIDTH = Map.BOARD_WIDTH;
     private final int BOARD_HEIGHT = Map.BOARD_HEIGHT;
     private ArrayList<Bullet> bullets;
-    private boolean powerUp;
+    private boolean powerUp = true;
     private int dx, dy;
     public int direction;
     private int health;
