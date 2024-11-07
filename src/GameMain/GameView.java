@@ -26,7 +26,7 @@ public class GameView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Battle City");
         setName("mainFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(512, 470));
+        setPreferredSize(new java.awt.Dimension(530, 495));
 
         gamePanel.setMinimumSize(new java.awt.Dimension(500, 500));
         gamePanel.setSize(new java.awt.Dimension(528, 448));

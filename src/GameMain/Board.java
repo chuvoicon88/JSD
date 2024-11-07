@@ -30,10 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener {
-    // Instance varaible for the timer of the tank
+    // Instance variable for the timer of the tank
     private Timer timer;
-    private Tank tank;
-
+    private Tank tankP1;
+    private Tank tankP2;
     private ArrayList<TankAI> enemy = new ArrayList<>();
     private ArrayList<Block> blocks = new ArrayList<>();
     private ArrayList<Animation> animations = new ArrayList<>();
@@ -56,7 +56,6 @@ public class Board extends JPanel implements ActionListener {
     private int numAI;
     private static final int goal = 10;
     public static int numEnemies = goal;
-
     /**
      * Constructor for the Board class
      *
@@ -79,11 +78,13 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         numAI = 0;
-        tank = new Tank(INIT_PLAYER_X, INIT_PLAYER_Y, 4, true);
+        tankP1 = new Tank(INIT_PLAYER_X, INIT_PLAYER_Y, 4, false);
+        tankP2 = new Tank(B_WIDTH - INIT_PLAYER_X - 75, INIT_PLAYER_Y, 4, true);
 
         initBlocks();
         CollisionUtility.loadCollisionUtility(blocks, animations);
-        BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tank);
+        BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP1, false);
+        BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP2, true);
     }
 
     /**
@@ -138,7 +139,7 @@ public class Board extends JPanel implements ActionListener {
      * the game
      */
     private void checkGameOver() {
-        if (tank.getHealth() < 0) {
+        if (tankP1.getHealth() < 0 && tankP2.getHealth() < 0) {
             setEndGame();
         }
     }
@@ -153,11 +154,11 @@ public class Board extends JPanel implements ActionListener {
                             this);
             }
         }
-        if (tank.isVisible()) {
-            g.drawImage(tank.getImage(), tank.getX(), tank.getY(), this);
+        if (tankP1.isVisible()) {
+            g.drawImage(tankP1.getImage(), tankP1.getX(), tankP1.getY(), this);
         }
         ArrayList<Bullet> bullets = new ArrayList<>();
-        bullets.addAll(tank.getBullets());
+        bullets.addAll(tankP1.getBullets());
         for (TankAI tankAI : enemy) {
             bullets.addAll(tankAI.getBullets());
         }
@@ -167,6 +168,21 @@ public class Board extends JPanel implements ActionListener {
                 g.drawImage(b.getImage(), b.getX(), b.getY(), this);
             }
         }
+
+        if (tankP2.isVisible()) {
+            g.drawImage(tankP2.getImage(), tankP2.getX(), tankP2.getY(), this);
+        }
+        ArrayList<Bullet> bullets2 = new ArrayList<>();
+        bullets2.addAll(tankP2.getBullets());
+        for (TankAI tankAI : enemy) {
+            bullets2.addAll(tankAI.getBullets());
+        }
+        for (Bullet b : bullets2) {
+            if (b.isVisible()) {
+                g.drawImage(b.getImage(), b.getX(), b.getY(), this);
+            }
+        }
+
         for (Block a : blocks) {
             if (a.isVisible()) {
                 g.drawImage(a.getImage(), a.getX(), a.getY(), this);
@@ -195,7 +211,7 @@ public class Board extends JPanel implements ActionListener {
 
         // Draw lives
         String ipText = "IP";
-        int lives = tank.getHealth();
+        int lives = tankP1.getHealth();
         Font font = loadFont();
         g.setFont(font);
         g.drawString(ipText, initX * 16, 17 * 16);
@@ -204,6 +220,11 @@ public class Board extends JPanel implements ActionListener {
         g.drawImage(liveIcon, initX * 16, 17 * 16, this);
         g.drawString(String.valueOf(lives < 0 ? 0 : lives), (initX + 1) * 16,
                      18 * 16);
+
+        int lives2 = tankP2.getHealth();
+        g.drawImage(liveIcon, initX * 16, 17 * 16 + 20, this);
+        g.drawString(String.valueOf(lives2 < 0 ? 0 : lives2), (initX + 1) * 16,
+                18 * 16 + 20);
 
         // Draw stages
         Image flagIcon = imageInstance.getFlagIcon();
@@ -279,7 +300,7 @@ public class Board extends JPanel implements ActionListener {
 
         nextLevel();
         repaint();
-    }
+        Toolkit.getDefaultToolkit().sync();}
 
     /**
      * Call initBoard to enter next Level when no enemy in the list.
@@ -298,8 +319,9 @@ public class Board extends JPanel implements ActionListener {
                 initBlocks();
                 CollisionUtility.loadCollisionUtility(blocks, animations);
                 BoardUtility.loadBoardUtility(enemy, blocks, animations,
-                                              powerUps,
-                                              tank);
+                                              powerUps, tankP1, false);
+                BoardUtility.loadBoardUtility(enemy, blocks, animations,
+                                              powerUps, tankP2, true);
             }
         }
     }
@@ -346,9 +368,11 @@ public class Board extends JPanel implements ActionListener {
                 if ("easy".equals(tankAI.getDifficulty())) {
                     tankAI.actionEasy();
                 } else if ("normal".equals(tankAI.getDifficulty())) {
-                    tankAI.actionNormal(this.tank);
+                    tankAI.actionNormal(this.tankP1);
+                    tankAI.actionNormal(this.tankP2);
                 } else if ("hard".equals(tankAI.getDifficulty())) {
-                    tankAI.actionHard(this.tank);
+                    tankAI.actionHard(this.tankP1);
+                    tankAI.actionNormal(this.tankP2);
                 }
             }
         }
@@ -462,15 +486,16 @@ public class Board extends JPanel implements ActionListener {
 
             if (yPos == stopYPos) {
                 gameOverTimer.stop();
-                Timer sorceBoardTimer = new Timer(3000, new ActionListener() {
+                Timer scoreBoardTimer = new Timer(3000, new ActionListener() {
                                               @Override
                                               public void actionPerformed(
                                                       ActionEvent e) {
                                                   loadScoreBoard(theView);
                                               }
                                           });
-                sorceBoardTimer.setRepeats(false);
-                sorceBoardTimer.start();
+                scoreBoardTimer.setRepeats(false);
+                scoreBoardTimer.start();
+
             }
         }
     }
@@ -494,7 +519,6 @@ public class Board extends JPanel implements ActionListener {
      * Set the gameOver variable to true.
      */
     public static void setEndGame() {
-        System.out.println("Game Over Played");
         SoundUtility.gameOver();
         gameOver = true;
     }
@@ -516,7 +540,8 @@ public class Board extends JPanel implements ActionListener {
         powerUps = new ArrayList<>();
 
         updateSprites();
-        resetTankPosition(tank, 2);
+        resetTankPosition(tankP1, 2);
+        resetTankPosition(tankP2, 2);
         loadCollisionUtility(blocks, animations);
 
     }
@@ -538,13 +563,25 @@ public class Board extends JPanel implements ActionListener {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            tank.keyReleased(e);
+            tankP1.keyReleased(e);
+            tankP2.keyReleased(e);
 
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            tank.keyPressed(e);
+            if (tankP1.getHealth() < 0) {
+                tankP1.setVisible(false);
+            }
+            if (tankP2.getHealth() < 0) {
+                tankP2.setVisible(false);
+            }
+            if (tankP1.isVisible()) {
+                tankP1.keyPressed(e);
+            }
+            if (tankP2.isVisible()) {
+                tankP2.keyPressed(e);
+            }
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 if (!pause) {
                     SoundUtility.pause();

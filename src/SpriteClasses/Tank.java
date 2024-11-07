@@ -28,7 +28,7 @@ public class Tank extends Sprite {
     public int direction;
     private long lastFired = 0;
     private int health = 2;
-    private boolean isPlayer2 = false;
+    public boolean isPlayer2;
     public int starLevel = 0;
     public int lives;
     public boolean shield = false;
@@ -57,7 +57,7 @@ public class Tank extends Sprite {
 
     public Tank(int x, int y, int lives, boolean isPlayer2) {
         super(x, y);
-        loadImage("src/image/playerTank_up.png");
+        loadImage(!isPlayer2 ? "src/image/playerTank_up.png" : "src/image/playerTank_up2.png");
         getImageDimensions();
         bullets = new ArrayList<>();
         direction = 0;
@@ -134,7 +134,6 @@ public class Tank extends Sprite {
             time = 250;
         }
         if (!isPlayer2) {
-            System.out.println("Player 1");
             if (key == KeyEvent.VK_SPACE && (System.currentTimeMillis() - lastFired) > time) {
                 fire();
                 lastFired = System.currentTimeMillis();
@@ -186,7 +185,7 @@ public class Tank extends Sprite {
                 if (starLevel > 1) {
                     dx = -2;
                 }
-                ImageIcon ii = new ImageIcon("src/image/playerTank_left.png");
+                ImageIcon ii = new ImageIcon("src/image/playerTank_left2.png");
                 image = ii.getImage();
                 direction = 3;
             } else if (key == KeyEvent.VK_RIGHT) {
@@ -195,11 +194,11 @@ public class Tank extends Sprite {
                 if (starLevel > 1) {
                     dx = 2;
                 }
-                ImageIcon ii = new ImageIcon("src/image/playerTank_right.png");
+                ImageIcon ii = new ImageIcon("src/image/playerTank_right2.png");
                 image = ii.getImage();
                 direction = 1;
             } else if (key == KeyEvent.VK_UP) {
-                ImageIcon ii = new ImageIcon("src/image/playerTank_up.png");
+                ImageIcon ii = new ImageIcon("src/image/playerTank_up2.png");
                 image = ii.getImage();
                 dy = -1;
                 dx = 0;
@@ -208,7 +207,7 @@ public class Tank extends Sprite {
                 }
                 direction = 0;
             } else if (key == KeyEvent.VK_DOWN) {
-                ImageIcon ii = new ImageIcon("src/image/playerTank_down.png");
+                ImageIcon ii = new ImageIcon("src/image/playerTank_down2.png");
                 image = ii.getImage();
                 dy = 1;
                 dx = 0;
