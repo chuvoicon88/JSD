@@ -25,6 +25,7 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
     private int direction = -1;
     private final int stopYPos = 100;
     private static boolean menuStatus = true;
+    private static int selectedMode = 0;
     private final ImageUtility imageInstance = ImageUtility.getInstance();
 
     /**
@@ -75,14 +76,25 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
         super.paintComponent(g);
         Font font = loadFont();
         g.drawImage(background,
-                    Map.BOARD_WIDTH / 2 - background.getWidth(null) / 2 - 10,
-                    yPos, this);
+                Map.BOARD_WIDTH / 2 - background.getWidth(null) / 2 - 10,
+                yPos, this);
         g.setFont(font);
         g.setColor(Color.WHITE);
-        g.drawString("1 PLAYER", Map.BOARD_WIDTH / 2 - 56,
-                     yPos + background.getHeight(null) + 50);
-        g.drawString("2 PLAYER", Map.BOARD_WIDTH / 2 - 56,
-                yPos + background.getHeight(null) + 70);
+        if (selectedMode == 0) {
+            g.drawString("1 PLAYER", Map.BOARD_WIDTH / 2 - 56,
+                    yPos + background.getHeight(null) + 50);
+            g.drawString("2 PLAYER", Map.BOARD_WIDTH / 2 - 56,
+                    yPos + background.getHeight(null) + 70);
+            g.drawImage(tank, Map.BOARD_WIDTH / 2 - 90,
+                    yPos + background.getHeight(null) + 25, this);
+        } else {
+            g.drawString("1 PLAYER", Map.BOARD_WIDTH / 2 - 56,
+                    yPos + background.getHeight(null) + 50);
+            g.drawString("2 PLAYER", Map.BOARD_WIDTH / 2 - 56,
+                    yPos + background.getHeight(null) + 70);
+            g.drawImage(tank, Map.BOARD_WIDTH / 2 - 90,
+                    yPos + background.getHeight(null) + 45, this);
+        }
         if (yPos == stopYPos) {
             drawMenuComponents(g);
         }
@@ -91,8 +103,6 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
     private void drawMenuComponents(Graphics g) {
         g.drawImage(tree, 10, 50, this);
         g.drawImage(tree, 10, 90, this);
-        g.drawImage(tank, Map.BOARD_WIDTH / 2 - 90,
-                    yPos + background.getHeight(null) + 25, this);
 
         Font font = loadFont();
         g.setFont(font);
@@ -165,6 +175,12 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == e.VK_ENTER) {
             loadBoard();
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            selectedMode = 0;
+            repaint();
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            selectedMode = 1;
+            repaint();
         }
     }
 

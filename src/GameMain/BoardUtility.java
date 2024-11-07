@@ -99,9 +99,9 @@ public class BoardUtility {
      * destroyed.
      */
     public static void spawnPowerUp() {
+        if (CollisionUtility.powerUpX != 0 || CollisionUtility.powerUpY != 0) {
         Random random = new Random();
         int randomPow = random.nextInt(5);
-        if (CollisionUtility.powerUpX != 0 || CollisionUtility.powerUpY != 0) {
             switch (randomPow) {
                 case 0:
                     powerUps.add(new BombPowerUp(CollisionUtility.powerUpX,
