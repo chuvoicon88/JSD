@@ -11,5 +11,4 @@ public class BombPowerUp extends PowerUp {
         setType(9);
         s = "src/image/powerup_grenade.png";
     }
-
 }

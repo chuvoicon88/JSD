@@ -335,6 +335,8 @@ public class Board extends JPanel implements ActionListener {
                                               powerUps, tankP1, false);
                 BoardUtility.loadBoardUtility(enemy, blocks, animations,
                                               powerUps, tankP2, true);
+                tankP1.resetPowerUpUsageForNewStage();
+                tankP2.resetPowerUpUsageForNewStage();
             }
         }
     }

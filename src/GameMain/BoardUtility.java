@@ -24,7 +24,7 @@ public class BoardUtility {
     private static ArrayList<TankAI> enemy = new ArrayList<>();
     private static ArrayList<Block> blocks = new ArrayList<>();
     private static ArrayList<Animation> animations = new ArrayList<>();
-    private static ArrayList<PowerUp> powerUps = new ArrayList<>();
+    public static ArrayList<PowerUp> powerUps = new ArrayList<>();
     private static Tank tankP1;
     private static Tank tankP2;
     private static boolean isMultiplayer = false;

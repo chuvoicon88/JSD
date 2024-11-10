@@ -1,13 +1,16 @@
 package SpriteClasses;
 
-import GameMain.CollisionUtility;
-import GameMain.Map;
-import GameMain.SoundUtility;
+import GameMain.*;
+import SpriteClasses.PowerUps.*;
+
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
+
+import static GameMain.BoardUtility.powerUps;
 
 /**
  * Tank extends Sprite The Tank represents the player in the game. The tank has
@@ -32,6 +35,7 @@ public class Tank extends Sprite {
     public int starLevel = 0;
 //    public int lives;
     public boolean shield = false;
+    private boolean hasUsedPowerUpThisStage = false;
 
     public int getHealth() {
         return health;
@@ -116,6 +120,57 @@ public class Tank extends Sprite {
         return image;
     }
 
+    public void spawnRandomPowerUp() {
+        if (hasUsedPowerUpThisStage) {
+            System.out.println("Power-up already used in this stage!");
+            return;
+        } else {
+            Random random = new Random();
+
+            // Randomly choose a subclass of PowerUp
+            PowerUp powerUp = null;
+            int randomChoice = random.nextInt(4);
+
+            // Random offset for where the power-up spawns
+            int offsetX = random.nextInt(40) - 20;
+            int offsetY = random.nextInt(40) - 20;
+            int spawnX = this.x + offsetX;
+            int spawnY = this.y + offsetY;
+
+            // Instantiate a random subclass of PowerUp
+            switch (randomChoice) {
+                case 0:
+                    powerUp = new TankPowerUp(spawnX, spawnY);
+                    break;
+                case 1:
+                    powerUp = new ShieldPowerUp(spawnX, spawnY);
+                    break;
+                case 2:
+                    powerUp = new StarPowerUp(spawnX, spawnY);
+                    break;
+                case 3:
+                    powerUp = new BombPowerUp(spawnX, spawnY);
+                    break;
+                default:
+                    break;
+            }
+
+            if (powerUp != null) {
+                // Add the power-up to the game's list of power-ups
+                powerUps.add(powerUp);
+            }
+            hasUsedPowerUpThisStage = true;
+        }
+    }
+
+    /**
+     * Resets the power-up usage for a new stage.
+     * This should be called when a new stage begins.
+     */
+    public void resetPowerUpUsageForNewStage() {
+        hasUsedPowerUpThisStage = false;
+    }
+
     public void keyPressed(KeyEvent e) {
         int time;
         int key = e.getKeyCode();
@@ -164,8 +219,10 @@ public class Tank extends Sprite {
                     dy = 2;
                 }
                 direction = 2;
+            } else if (key == KeyEvent.VK_F) {
+                spawnRandomPowerUp();
             }
-        /** Player 2 */
+            /** Player 2 */
         } else {
             if (key == KeyEvent.VK_BACK_SPACE && (System.currentTimeMillis() - lastFired) > time) {
                 fire();
@@ -206,6 +263,8 @@ public class Tank extends Sprite {
                     dy = 2;
                 }
                 direction = 2;
+            } else if (key == KeyEvent.VK_F) {
+                spawnRandomPowerUp();
             }
         }
     }
