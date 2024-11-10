@@ -53,6 +53,10 @@ public class Sprite {
 
     public void setVisible(Boolean visible) {
         vis = visible;
+        if (!vis) {
+            width = 0;
+            height = 0;
+        }
     }
 
     public Rectangle getBounds() {

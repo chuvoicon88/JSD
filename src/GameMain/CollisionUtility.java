@@ -230,7 +230,7 @@ public class CollisionUtility {
      * @param type
      */
     public static void resetTankPosition(Tank atank, int type) {
-        atank.x = 10 * 16;
+        atank.x = !atank.isPlayer2 ? 10 * 16 : Map.BOARD_WIDTH - 10 * 16 - 75;
         atank.y = (Map.level0.length - 3) * 16;
         atank.shield = true;
         explosions.add(new TankShield(atank, 2));

@@ -49,7 +49,7 @@ public class ScoreBoard extends JPanel implements ActionListener, KeyListener {
     }
 
     /**
-     * Draw the scoreBorad with different types of enemies on the screen.
+     * Draw the scoreBoard with different types of enemies on the screen.
      *
      * @param g Graphics
      */
@@ -126,7 +126,7 @@ public class ScoreBoard extends JPanel implements ActionListener, KeyListener {
      * Restart the game, load the menu and reset player's totalScore.
      */
     public void restart() {
-        Board.gameOver = false;
+        Board.restartGame();
         CollisionUtility.resetScore();
         loadMenu();
     }
