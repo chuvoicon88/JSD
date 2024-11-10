@@ -25,7 +25,7 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
     private int direction = -1;
     private final int stopYPos = 100;
     private static boolean menuStatus = true;
-    private static int selectedMode = 0;
+    public static int selectedMode = 0;
     private final ImageUtility imageInstance = ImageUtility.getInstance();
 
     /**

@@ -27,7 +27,7 @@ public class BoardUtility {
     private static ArrayList<PowerUp> powerUps = new ArrayList<>();
     private static Tank tankP1;
     private static Tank tankP2;
-    private static boolean isPlayer2;
+    private static boolean isMultiplayer = false;
 
 
     /**
@@ -49,9 +49,8 @@ public class BoardUtility {
             BoardUtility.tankP1 = tank;
         } else {
             BoardUtility.tankP2 = tank;
+            isMultiplayer = true;
         }
-        BoardUtility.isPlayer2 = isPlayer2;
-
         BoardUtility.enemy = enemy;
         BoardUtility.blocks = blocks;
         BoardUtility.animations = animations;
@@ -69,7 +68,10 @@ public class BoardUtility {
 
             // Check if power-up intersects with tankP1 or tankP2
             Rectangle r1 = tankP1.getBounds();
-            Rectangle r2 = tankP2.getBounds();
+            Rectangle r2 = null;
+            if (tankP2 != null) {
+                r2 = tankP2.getBounds();
+            }
             Rectangle powerUpBounds = p.getBounds();
 
             if (System.currentTimeMillis() - p.getLoadTime() > 10000) {
@@ -83,7 +85,7 @@ public class BoardUtility {
                 powerUps.remove(i);
                 i--; // Adjust index after removal
                 continue;
-            } else if (r2.intersects(powerUpBounds)) {
+            } else if (r2 != null && r2.intersects(powerUpBounds)) {
                 handlePowerUpPickup(tankP2, type);
                 powerUps.remove(i);
                 i--; // Adjust index after removal
@@ -225,13 +227,15 @@ public class BoardUtility {
      */
     public static void updateBulletsTank() {
         for (Tank tank : Arrays.asList(tankP1, tankP2)) {
-            ArrayList<Bullet> bullets = tank.getBullets();
-            for (int i = 0; i < bullets.size(); i++) {
-                Bullet b = bullets.get(i);
-                if (b.isVisible()) {
-                    b.move();
-                } else {
-                    bullets.remove(i);
+            if (tank != null) {
+                ArrayList<Bullet> bullets = tank.getBullets();
+                for (int i = 0; i < bullets.size(); i++) {
+                    Bullet b = bullets.get(i);
+                    if (b.isVisible()) {
+                        b.move();
+                    } else {
+                        bullets.remove(i);
+                    }
                 }
             }
         }
@@ -275,14 +279,16 @@ public class BoardUtility {
         if (tankP1.getHealth() < 0) {
             tankP1.setVisible(false);
         }
-        if (tankP2.getHealth() < 0) {
-            tankP2.setVisible(false);
-        }
         if (tankP1.isVisible()) {
             tankP1.move();
         }
-        if (tankP2.isVisible()) {
-            tankP2.move();
+        if (tankP2 != null) {
+            if (tankP2.getHealth() < 0) {
+                tankP2.setVisible(false);
+            }
+            if (tankP2.isVisible()) {
+                tankP2.move();
+            }
         }
     }
 
@@ -294,8 +300,9 @@ public class BoardUtility {
 
         // Collect bullets from both player tanks
         bullets.addAll(tankP1.getBullets());
-        bullets.addAll(tankP2.getBullets());
-
+        if (tankP2 != null) {
+            bullets.addAll(tankP2.getBullets());
+        }
         // Add bullets from enemy tanks
         for (TankAI tankAI : enemy) {
             bullets.addAll(tankAI.getBullets());
@@ -309,11 +316,14 @@ public class BoardUtility {
 
         // Check if enemy bullets hit each player tank
         CollisionUtility.checkCollisionBulletsTank(bullets, tankP1);
-        CollisionUtility.checkCollisionBulletsTank(bullets, tankP2);
-
+        if (tankP2 != null) {
+            CollisionUtility.checkCollisionBulletsTank(bullets, tankP2);
+        }
         // Check for collisions between player tanks and enemy tanks
         CollisionUtility.checkCollisionTankTankAI(enemy, tankP1);
-        CollisionUtility.checkCollisionTankTankAI(enemy, tankP2);
+        if (tankP2 != null) {
+            CollisionUtility.checkCollisionTankTankAI(enemy, tankP2);
+        }
     }
 
 }

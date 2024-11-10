@@ -3,6 +3,7 @@ package GameMain;
 import static GameMain.CollisionUtility.loadCollisionUtility;
 import static GameMain.CollisionUtility.resetTankPosition;
 import static GameMain.Menu.loadFont;
+
 import SpriteClasses.Animation;
 import SpriteClasses.Base;
 import SpriteClasses.Block;
@@ -34,6 +35,7 @@ public class Board extends JPanel implements ActionListener {
     private Timer timer;
     private Tank tankP1;
     private Tank tankP2;
+    private boolean isMultiplayer = false;
     private ArrayList<TankAI> enemy = new ArrayList<>();
     private ArrayList<Block> blocks = new ArrayList<>();
     private ArrayList<Animation> animations = new ArrayList<>();
@@ -72,6 +74,9 @@ public class Board extends JPanel implements ActionListener {
      * Initialize the board.
      */
     private void initBoard() {
+        if (Menu.selectedMode == 1) {
+            isMultiplayer = true;
+        }
         stage = 1;
         addKeyListener(new TAdapter());
         setFocusable(true);
@@ -84,7 +89,15 @@ public class Board extends JPanel implements ActionListener {
         initBlocks();
         CollisionUtility.loadCollisionUtility(blocks, animations);
         BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP1, false);
-        BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP2, true);
+        if (isMultiplayer) {
+            tankP2.setVisible(true);
+            BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP2, true);
+        } else {
+            tankP2.setVisible(false);
+            for (int i = 0; i < tankP2.lives; i++) {
+                tankP2.downHealth();
+            }
+        }
     }
 
     /**
@@ -555,6 +568,14 @@ public class Board extends JPanel implements ActionListener {
         return stage;
     }
 
+    public boolean getIsMultiplayer() {
+        return isMultiplayer;
+    }
+
+    public void setIsMultiplayer(boolean isMultiplayer) {
+        this.isMultiplayer = isMultiplayer;
+    }
+
     /**
      * Tank key adapter. Override the methods in KeyAdapter to add events
      * handlers for the tanks
@@ -565,7 +586,6 @@ public class Board extends JPanel implements ActionListener {
         public void keyReleased(KeyEvent e) {
             tankP1.keyReleased(e);
             tankP2.keyReleased(e);
-
         }
 
         @Override
