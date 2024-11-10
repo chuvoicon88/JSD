@@ -80,21 +80,37 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
                 yPos, this);
         g.setFont(font);
         g.setColor(Color.WHITE);
-        if (selectedMode == 0) {
+
+        if (selectedMode == 0) {  // Player 1 Mode
             g.drawString("1 PLAYER", Map.BOARD_WIDTH / 2 - 56,
                     yPos + background.getHeight(null) + 50);
             g.drawString("2 PLAYER", Map.BOARD_WIDTH / 2 - 56,
                     yPos + background.getHeight(null) + 70);
             g.drawImage(tank, Map.BOARD_WIDTH / 2 - 90,
                     yPos + background.getHeight(null) + 25, this);
-        } else {
+
+            // Displaying Player 1 Controls
+            g.drawString("Movement: W, A, S, D", Map.BOARD_WIDTH / 2 - 156, yPos + background.getHeight(null) + 100);
+            g.drawString("Shoot: Space", Map.BOARD_WIDTH / 2 - 156, yPos + background.getHeight(null) + 120);
+            g.drawString("Random PowerUp: F", Map.BOARD_WIDTH / 2 - 156, yPos + background.getHeight(null) + 140);
+
+        } else {  // Player 2 Mode
             g.drawString("1 PLAYER", Map.BOARD_WIDTH / 2 - 56,
                     yPos + background.getHeight(null) + 50);
             g.drawString("2 PLAYER", Map.BOARD_WIDTH / 2 - 56,
                     yPos + background.getHeight(null) + 70);
             g.drawImage(tank, Map.BOARD_WIDTH / 2 - 90,
                     yPos + background.getHeight(null) + 45, this);
+
+            // Displaying Player 2 Controls
+            g.drawString("P1 Movement - W, A, S, D", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 100);
+            g.drawString("P2 Movement - Up, Down, Left, Right", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 120);
+            g.drawString("Shoot - P1 (Space)", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 140);
+            g.drawString("P2 (Backspace) ", Map.BOARD_WIDTH / 2 - 120, yPos + background.getHeight(null) + 160);
+            g.drawString("Random powerup - P1 (F)", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 180);
+            g.drawString("P2 (P)", Map.BOARD_WIDTH / 2 - 5, yPos + background.getHeight(null) + 200);
         }
+
         if (yPos == stopYPos) {
             drawMenuComponents(g);
         }
@@ -107,9 +123,9 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
         Font font = loadFont();
         g.setFont(font);
         g.setColor(Color.WHITE);
-        g.drawString("PRESS ENTER",
-                     Map.BOARD_WIDTH / 2 - 80,
-                     Map.BOARD_HEIGHT * 4 / 5 + 25);
+        g.drawString("PRESS ENTER TO BEGIN",
+                     Map.BOARD_WIDTH / 2 - 155,
+                     Map.BOARD_HEIGHT * 4 / 5 - 300);
     }
 
     @Override
@@ -126,7 +142,7 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT,
                                             new File("src/prstart.ttf"));
-            font = font.deriveFont(Font.PLAIN, 15);
+            font = font.deriveFont(Font.PLAIN, 13);
             GraphicsEnvironment ge
                                 = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
