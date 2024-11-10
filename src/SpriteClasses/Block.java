@@ -19,10 +19,6 @@ public class Block extends Sprite {
         health -= 1;
     }
 
-    public int currentHealth() {
-        return health;
-    }
-
     public int getHealth() {
         return health;
     }

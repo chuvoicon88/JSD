@@ -22,7 +22,6 @@ import static GameMain.BoardUtility.powerUps;
  *
  */
 public class Tank extends Sprite {
-
     private final int BOARD_WIDTH = Map.BOARD_WIDTH;
     private final int BOARD_HEIGHT = Map.BOARD_HEIGHT;
     private int dx;

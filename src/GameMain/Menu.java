@@ -103,12 +103,12 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
                     yPos + background.getHeight(null) + 45, this);
 
             // Displaying Player 2 Controls
-            g.drawString("P1 Movement - W, A, S, D", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 100);
-            g.drawString("P2 Movement - Up, Down, Left, Right", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 120);
-            g.drawString("Shoot - P1 (Space)", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 140);
-            g.drawString("P2 (Backspace) ", Map.BOARD_WIDTH / 2 - 120, yPos + background.getHeight(null) + 160);
-            g.drawString("Random powerup - P1 (F)", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 180);
-            g.drawString("P2 (P)", Map.BOARD_WIDTH / 2 - 5, yPos + background.getHeight(null) + 200);
+            g.drawString("P1 Movement: W, A, S, D", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 100);
+            g.drawString("P2 Movement: Up, Down, Left, Right", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 120);
+            g.drawString("Shoot: P1 (Space)", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 140);
+            g.drawString("P2 (Backspace) ", Map.BOARD_WIDTH / 2 - 135, yPos + background.getHeight(null) + 160);
+            g.drawString("Random PowerUp: P1 (F)", Map.BOARD_WIDTH / 2 - 225, yPos + background.getHeight(null) + 180);
+            g.drawString("P2 (P)", Map.BOARD_WIDTH / 2 - 17, yPos + background.getHeight(null) + 200);
         }
 
         if (yPos == stopYPos) {
