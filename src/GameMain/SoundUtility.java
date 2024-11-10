@@ -20,7 +20,6 @@ public class SoundUtility {
     private static Clip powerupPickSE;
     private static Clip gameoverSE;
     private static Clip statisticsSE;
-
     private static boolean initialized = false;
 
     /**

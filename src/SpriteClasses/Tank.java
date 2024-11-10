@@ -33,9 +33,8 @@ public class Tank extends Sprite {
     private int health = 3;
     public boolean isPlayer2;
     public int starLevel = 0;
-//    public int lives;
     public boolean shield = false;
-    private boolean hasUsedPowerUpThisStage = false;
+    private boolean hasEmergencyPowerUp = false;
 
     public int getHealth() {
         return health;
@@ -121,8 +120,8 @@ public class Tank extends Sprite {
     }
 
     public void spawnRandomPowerUp() {
-        if (hasUsedPowerUpThisStage) {
-            System.out.println("Power-up already used in this stage!");
+        if (hasEmergencyPowerUp) {
+            System.out.println("Emergency Power-up already been used in this stage!");
             return;
         } else {
             Random random = new Random();
@@ -159,7 +158,7 @@ public class Tank extends Sprite {
                 // Add the power-up to the game's list of power-ups
                 powerUps.add(powerUp);
             }
-            hasUsedPowerUpThisStage = true;
+            hasEmergencyPowerUp = true;
         }
     }
 
@@ -168,7 +167,7 @@ public class Tank extends Sprite {
      * This should be called when a new stage begins.
      */
     public void resetPowerUpUsageForNewStage() {
-        hasUsedPowerUpThisStage = false;
+        hasEmergencyPowerUp = false;
     }
 
     public void keyPressed(KeyEvent e) {
@@ -263,7 +262,7 @@ public class Tank extends Sprite {
                     dy = 2;
                 }
                 direction = 2;
-            } else if (key == KeyEvent.VK_F) {
+            } else if (key == KeyEvent.VK_P) {
                 spawnRandomPowerUp();
             }
         }
