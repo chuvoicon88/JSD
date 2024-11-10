@@ -263,7 +263,7 @@ public class Tank extends Sprite {
                     dy = 2;
                 }
                 direction = 2;
-            } else if (key == KeyEvent.VK_F) {
+            } else if (key == KeyEvent.VK_P) {
                 spawnRandomPowerUp();
             }
         }
