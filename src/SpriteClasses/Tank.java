@@ -27,14 +27,14 @@ public class Tank extends Sprite {
     private ArrayList<Bullet> bullets;
     public int direction;
     private long lastFired = 0;
-    private int health = 2;
+    private int health = 5;
     public boolean isPlayer2;
     public int starLevel = 0;
     public int lives;
     public boolean shield = false;
 
     public void upLives() {
-        this.lives += 1;
+        this.health += 1;
     }
 
     public int getHealth() {

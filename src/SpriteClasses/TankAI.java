@@ -59,53 +59,53 @@ public class TankAI extends Sprite {
             this.health = 1;
             this.speedConst = 1;
             if (difficulty.equals("easy")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 80;
+                dirUpdateInterval = 150;
+                fireUpdateInterval = 200;
             } else if (difficulty.equals("normal")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 75;
+                dirUpdateInterval = 100;
+                fireUpdateInterval = 150;
             } else if (difficulty.equals("hard")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 70;
+                dirUpdateInterval = 90;
+                fireUpdateInterval = 125;
             }
         } else if ("armor".equals(this.type)) {
             this.health = 4;
             this.speedConst = 1;
             if (difficulty.equals("easy")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 80;
+                dirUpdateInterval = 150;
+                fireUpdateInterval = 200;
             } else if (difficulty.equals("normal")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 75;
+                dirUpdateInterval = 100;
+                fireUpdateInterval = 150;
             } else if (difficulty.equals("hard")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 70;
+                dirUpdateInterval = 90;
+                fireUpdateInterval = 125;
             }
         } else if ("power".equals(this.type)) {
             this.health = 1;
             this.speedConst = 1;
             if (difficulty.equals("easy")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 40;
+                dirUpdateInterval = 150;
+                fireUpdateInterval = 200;
             } else if (difficulty.equals("normal")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 35;
+                dirUpdateInterval = 100;
+                fireUpdateInterval = 150;
             } else if (difficulty.equals("hard")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 30;
+                dirUpdateInterval = 90;
+                fireUpdateInterval = 125;
             }
         } else if ("fast".equals(this.type)) {
             this.health = 1;
-            this.speedConst = 2;
+            this.speedConst = 1.5;
             if (difficulty.equals("easy")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 80;
+                dirUpdateInterval = 150;
+                fireUpdateInterval = 200;
             } else if (difficulty.equals("normal")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 75;
+                dirUpdateInterval = 100;
+                fireUpdateInterval = 150;
             } else if (difficulty.equals("hard")) {
-                dirUpdateInterval = 30;
-                fireUpdateInterval = 70;
+                dirUpdateInterval = 90;
+                fireUpdateInterval = 125;
             }
         }
     }
@@ -285,7 +285,7 @@ public class TankAI extends Sprite {
         }
 
         if (x > BOARD_WIDTH - width) {
-            x = BOARD_WIDTH - width;
+            x = BOARD_WIDTH - width ;
         }
 
         if (y > BOARD_HEIGHT - height) {
@@ -382,6 +382,7 @@ public class TankAI extends Sprite {
      *
      */
     private void dirUpdate() {
+        speedConst = 1;
         ImageIcon ii;
         if (frozen) {
             this.dx = 0;
