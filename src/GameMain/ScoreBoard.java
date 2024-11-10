@@ -71,14 +71,14 @@ public class ScoreBoard extends JPanel implements ActionListener, KeyListener {
         g.drawString("STAGE   " + String.valueOf(stage), 97 + SHIFT, 60);
 
         g.setColor(Color.RED);
-        g.drawString("1-PLAYER", 37 + SHIFT, 95);
+        g.drawString(Menu.selectedMode == 0 ? "1-PLAYER" : "2-PLAYER", 37 + SHIFT, 95);
 
         g.setColor(Color.orange);
         g.drawString(String.valueOf(totalScore), 121 + SHIFT, 130);
 
         for (int i = 0; i < 4; i++) {
-            g.drawImage(tankList.get(i), 226 + SHIFT, 160 + (i * 45), this);
-            g.drawImage(imageInstance.getArrow(), 206 + SHIFT, 168 + (i * 45),
+            g.drawImage(tankList.get(i), 240 + SHIFT, 160 + (i * 45), this);
+            g.drawImage(imageInstance.getArrow(), 220 + SHIFT, 168 + (i * 45),
                         this);
         }
         for (int i = 0; i < 4; i++) {

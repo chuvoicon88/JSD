@@ -27,7 +27,6 @@ public class SoundUtility {
      * Load different sound files
      */
     public static void initialize() {
-        System.out.println("INITIALIZE");
         try {
             File bBse = new File("src/sound/bullet_hit_2.wav");
             bulletBrickSE = AudioSystem.getClip();

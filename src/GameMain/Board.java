@@ -83,8 +83,8 @@ public class Board extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         numAI = 0;
-        tankP1 = new Tank(INIT_PLAYER_X, INIT_PLAYER_Y, 4, false);
-        tankP2 = new Tank(B_WIDTH - INIT_PLAYER_X - 75, INIT_PLAYER_Y, 4, true);
+        tankP1 = new Tank(INIT_PLAYER_X, INIT_PLAYER_Y, false);
+        tankP2 = new Tank(B_WIDTH - INIT_PLAYER_X - 75, INIT_PLAYER_Y, true);
 
         initBlocks();
         CollisionUtility.loadCollisionUtility(blocks, animations);
@@ -94,7 +94,7 @@ public class Board extends JPanel implements ActionListener {
             BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP2, true);
         } else {
             tankP2.setVisible(false);
-            for (int i = 0; i < tankP2.lives; i++) {
+            for (int i = 0; i < tankP2.getHealth(); i++) {
                 tankP2.downHealth();
             }
         }
@@ -499,7 +499,7 @@ public class Board extends JPanel implements ActionListener {
 
             if (yPos == stopYPos) {
                 gameOverTimer.stop();
-                Timer scoreBoardTimer = new Timer(3000, new ActionListener() {
+                Timer scoreBoardTimer = new Timer(1000, new ActionListener() {
                                               @Override
                                               public void actionPerformed(
                                                       ActionEvent e) {

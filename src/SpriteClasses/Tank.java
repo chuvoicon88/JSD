@@ -27,15 +27,11 @@ public class Tank extends Sprite {
     private ArrayList<Bullet> bullets;
     public int direction;
     private long lastFired = 0;
-    private int health = 5;
+    private int health = 3;
     public boolean isPlayer2;
     public int starLevel = 0;
-    public int lives;
+//    public int lives;
     public boolean shield = false;
-
-    public void upLives() {
-        this.health += 1;
-    }
 
     public int getHealth() {
         return health;
@@ -45,23 +41,18 @@ public class Tank extends Sprite {
         starLevel += 1;
     }
 
-    public int getLives() {
-        return this.lives;
-    }
-
     public void downHealth() {
         if (shield == false) {
             this.health -= 1;
         }
     }
 
-    public Tank(int x, int y, int lives, boolean isPlayer2) {
+    public Tank(int x, int y, boolean isPlayer2) {
         super(x, y);
         loadImage(!isPlayer2 ? "src/image/playerTank_up.png" : "src/image/playerTank_up2.png");
         getImageDimensions();
         bullets = new ArrayList<>();
         direction = 0;
-        this.lives = lives;
         this.isPlayer2 = isPlayer2;
     }
 

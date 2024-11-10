@@ -67,7 +67,6 @@ public class CollisionUtility {
             SoundUtility.explosion2();
             Board.setEndGame();
             SoundUtility.gameOver();
-
         }
         if (block.getHealth() == 0) {
             SoundUtility.explosion2();
@@ -232,8 +231,13 @@ public class CollisionUtility {
     public static void resetTankPosition(Tank atank, int type) {
         atank.x = !atank.isPlayer2 ? 10 * 16 : Map.BOARD_WIDTH - 10 * 16 - 75;
         atank.y = (Map.level0.length - 3) * 16;
-        atank.shield = true;
-        explosions.add(new TankShield(atank, 2));
+        if (atank.getHealth() < 0) {
+            atank.shield = false;
+            atank.setVisible(false);
+        } else {
+            atank.shield = true;
+            explosions.add(new TankShield(atank, 2));
+        }
         if (type == 1) {
             atank.starLevel = 0;
         } else {
@@ -256,6 +260,7 @@ public class CollisionUtility {
             Rectangle r2 = tankAI.getBounds();
             if (r1.intersects(r2)) {
                 if (atank.shield == false) {
+                    SoundUtility.explosion2();
                     explosions.add(new ExplodingTank(atank.x, atank.y));
                     atank.downHealth();
                     resetTankPosition(atank, 1);
