@@ -103,7 +103,6 @@ public class Board extends JPanel implements ActionListener {
      * Initialize blocks according to the map.
      */
     public void initBlocks() {
-
         int[][] map = Map.getMap(stage);
         SoundUtility.startStage();
         int type;

@@ -90,11 +90,14 @@ public class Menu extends JPanel implements ActionListener, KeyListener {
                     yPos + background.getHeight(null) + 25, this);
 
             // Displaying Player 1 Controls
-            g.drawString("Movement: W, A, S, D", Map.BOARD_WIDTH / 2 - 156, yPos + background.getHeight(null) + 100);
-            g.drawString("Shoot: Space", Map.BOARD_WIDTH / 2 - 156, yPos + background.getHeight(null) + 120);
-            g.drawString("Random PowerUp: F", Map.BOARD_WIDTH / 2 - 156, yPos + background.getHeight(null) + 140);
+            g.drawString("Movement: W, A, S, D", Map.BOARD_WIDTH / 2 - 156,
+                    yPos + background.getHeight(null) + 100);
+            g.drawString("Shoot: Space", Map.BOARD_WIDTH / 2 - 156,
+                    yPos + background.getHeight(null) + 120);
+            g.drawString("Random PowerUp: F", Map.BOARD_WIDTH / 2 - 156,
+                    yPos + background.getHeight(null) + 140);
 
-        } else {  // Player 2 Mode
+        } else {  // 2 Player Mode
             g.drawString("1 PLAYER", Map.BOARD_WIDTH / 2 - 56,
                     yPos + background.getHeight(null) + 50);
             g.drawString("2 PLAYER", Map.BOARD_WIDTH / 2 - 56,

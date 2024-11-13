@@ -1,8 +1,8 @@
-package GameMain;
-
 import javax.swing.UIManager;
+import GameMain.GameView;
+import GameMain.Menu;
 
-public class GameMain {
+public class Main {
     /**
      * @param args the command line arguments
      * @throws Exception
