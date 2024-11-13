@@ -93,9 +93,10 @@ public class Board extends JPanel implements ActionListener {
             BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP2, true);
         } else {
             tankP2.setVisible(false);
-            tankP2.downHealth();
-            tankP2.downHealth();
-            tankP2.downHealth();
+            int tankP2Health = tankP2.getHealth();
+            for (int i = 0; i <= tankP2Health; i++) {
+                tankP2.downHealth();
+            }
         }
     }
 
