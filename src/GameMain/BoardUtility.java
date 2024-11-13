@@ -22,7 +22,7 @@ public class BoardUtility {
     public static ArrayList<PowerUp> powerUps = new ArrayList<>();
     private static Tank tankP1;
     private static Tank tankP2;
-    private static boolean isMultiplayer = false;
+//    private static boolean isMultiplayer = false;
 
 
     /**
@@ -44,7 +44,7 @@ public class BoardUtility {
             BoardUtility.tankP1 = tank;
         } else {
             BoardUtility.tankP2 = tank;
-            isMultiplayer = true;
+//            isMultiplayer = true;
         }
         BoardUtility.enemy = enemy;
         BoardUtility.blocks = blocks;

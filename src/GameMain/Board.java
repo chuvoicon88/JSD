@@ -93,9 +93,9 @@ public class Board extends JPanel implements ActionListener {
             BoardUtility.loadBoardUtility(enemy, blocks, animations, powerUps, tankP2, true);
         } else {
             tankP2.setVisible(false);
-            for (int i = 0; i < tankP2.getHealth(); i++) {
-                tankP2.downHealth();
-            }
+            tankP2.downHealth();
+            tankP2.downHealth();
+            tankP2.downHealth();
         }
     }
 
@@ -150,7 +150,7 @@ public class Board extends JPanel implements ActionListener {
      * the game
      */
     private void checkGameOver() {
-        if (tankP1.getHealth() < 0 && tankP2.getHealth() < 0) {
+        if (tankP1.getHealth() <= 0 && tankP2.getHealth() <= 0) {
             setEndGame();
         }
     }
